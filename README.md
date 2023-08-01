@@ -1,6 +1,6 @@
 # Php Shopping Cart
 
-A Shopping Cart Implementation for Php
+Shopping Cart is an implementation allowing to add the shopping cart part in your PHP applications
 
 This package is an adaptation, it is based on and uses several functions on the package Darrydecode Laravel Shopping Cart :
 https://github.com/darryldecode/laravelshoppingcart
