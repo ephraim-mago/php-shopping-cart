@@ -1,5 +1,8 @@
 # Php Shopping Cart
 
+[![Total Downloads](https://poser.pugx.org/darryldecode/cart/d/total.svg)](https://packagist.org/packages/ephra/shopping-cart)
+[![License](https://poser.pugx.org/darryldecode/cart/license.svg)](https://packagist.org/packages/ephra/shopping-cart)
+
 Shopping Cart is an implementation allowing to add the shopping cart part in your PHP applications
 
 This package is an adaptation, it is based on and uses several functions on the package Darrydecode Laravel Shopping Cart :
