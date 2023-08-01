@@ -1,7 +1,6 @@
 # Php Shopping Cart
 
-[![Total Downloads](https://poser.pugx.org/darryldecode/cart/d/total.svg)](https://packagist.org/packages/ephra/shopping-cart)
-[![License](https://poser.pugx.org/darryldecode/cart/license.svg)](https://packagist.org/packages/ephra/shopping-cart)
+[![Total Downloads](http://poser.pugx.org/ephra/shopping-cart/downloads)](https://packagist.org/packages/ephra/shopping-cart)
 
 Shopping Cart is an implementation allowing to add the shopping cart part in your PHP applications
 
@@ -34,9 +33,10 @@ Ephramago\Cart\Contracts\Session\SessionInterface::class
 ```
 
 ## HOW TO USE
--   [Quick Usage](#usage-usage-example)
--   [Usage](#usage)
--   [License](#license)
+
+- [Quick Usage](#usage-usage-example)
+- [Usage](#usage)
+- [License](#license)
 
 ## Quick Usage Example
 
@@ -78,7 +78,7 @@ foreach($items as $row) {
 	echo $row->name;
 	echo $row->qty;
 	echo $row->price;
-	
+
 	echo $item->associatedModel->id; // whatever properties your model have
   	echo $item->associatedModel->name; // whatever properties your model have
   	echo $item->associatedModel->description; // whatever properties your model have
@@ -137,11 +137,11 @@ There are several ways you can add items on your cart, see below:
  # ALWAYS REMEMBER TO BIND THE CART TO A USER BEFORE CALLING ANY CART FUNCTION
  # SO CART WILL KNOW WHO'S CART DATA YOU WANT TO MANIPULATE. SEE IMPORTANT NOTICE ABOVE.
  # EXAMPLE: $cart->session($userId); then followed by cart normal usage.
- 
+
  # NOTE:
  # the 'id' field in adding a new item on cart is not intended for the Model ID (example Product ID)
- # instead make sure to put a unique ID for every unique product or product that has it's own unique prirce, 
- # because it is used for updating cart and how each item on cart are segregated during calculation and quantities. 
+ # instead make sure to put a unique ID for every unique product or product that has it's own unique prirce,
+ # because it is used for updating cart and how each item on cart are segregated during calculation and quantities.
  # You can put the model_id instead as an attribute for full flexibility.
  # Example is that if you want to add same products on the cart but with totally different attribute and price.
  # If you use the Product's ID as the 'id' field in cart, it will result to increase in quanity instead
@@ -368,4 +368,3 @@ $cart->session($userId)->clear();
 ## License
 
 The Laravel Shopping Cart is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
-	
