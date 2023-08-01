@@ -9,7 +9,7 @@ https://github.com/darryldecode/laravelshoppingcart
 
 Install the package through [Composer](http://getcomposer.org/).
 
-`composer require "darryldecode/cart:~2.0"`
+`composer require ephra/shopping-cart`
 
 ## CONFIGURATION
 
