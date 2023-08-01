@@ -36,6 +36,7 @@ Ephramago\Cart\Contracts\Session\SessionInterface::class
 
 - [Quick Usage](#usage-usage-example)
 - [Usage](#usage)
+- [Instances](#instances)
 - [License](#license)
 
 ## Quick Usage Example
@@ -363,6 +364,105 @@ Clearing the Cart: **Cart::clear()**
 */
 $cart->clear();
 $cart->session($userId)->clear();
+```
+
+## Instances
+
+You may also want multiple cart instances on the same page without conflicts.
+To do that,
+
+Create a new PhpSession class, you can put this like so:
+
+```php
+use Ephramago\Cart\Contracts\Session\SessionInterface;
+
+class PhpSession implements SessionInterface
+{
+  /**
+   * Checks if a key is present and not null.
+   *
+   * @param  string|int $key
+   * @return bool
+   */
+  public function has($key)
+  {
+      $this->ensureStarted();
+      return array_key_exists($key, $_SESSION);
+  }
+
+  /**
+   * Get an item from the session.
+   *
+   * @param  string|int $key
+   * @return mixed
+   */
+  public function get($key, $default = null)
+  {
+      $this->ensureStarted();
+      return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
+  }
+
+  /**
+   * Put a key / value pair or array of key / value pairs in the session.
+   *
+   * @param  string|array  $key
+   * @param  mixed  $value
+   * @return void
+   */
+  public function put($key, $value)
+  {
+      $this->ensureStarted();
+      $_SESSION[$key] = $value;
+  }
+
+  /**
+   * Remove an item from the session, returning its value.
+   *
+   * @param  string  $key
+   * @return void
+   */
+  public function delete($key)
+  {
+      $this->ensureStarted();
+      unset($_SESSION[$key]);
+  }
+
+  private function ensureStarted()
+  {
+      if (session_status() === PHP_SESSION_NONE) {
+          session_start();
+      }
+  }
+}
+```
+
+Create a new cart file configuration:
+
+```php
+/* configCart.php */
+
+return [
+  'format_numbers' => false,
+  'decimals' => 2,
+  'dec_point' => '.',
+  'thousands_sep' => ',',
+];
+```
+
+Create a new Cart instance:
+
+```php
+$session = new PhpSession(); // PhpSession storage
+$instanceName = 'my_cart'; // your cart instance name
+$session_key = 'AsASDMCks0ks1'; // your user ID or unique session key to hold cart items
+$configCart = require('/configCart.php'); // the file contains cart configuration
+
+$cart = new Cart(
+  $session,
+  $instanceName,
+  $session_key,
+  $configCart
+);
 ```
 
 ## License
