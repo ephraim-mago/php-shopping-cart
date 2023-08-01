@@ -1,0 +1,33 @@
+{
+  "name": "ephra/shopping-cart",
+  "description": "PHP Shopping cart",
+  "keywords": [
+    "php",
+    "shopping cart",
+    "cart"
+  ],
+  "authors": [
+    {
+      "name": "Ephraim-Mago",
+      "email": "ephraimmago@gmail.com"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "src/Ephramago/Cart/utils.php"
+    ],
+    "psr-4": {
+      "Ephramago\\": "src/Ephramago"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ephramago\\Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^6.3",
+    "phpunit/phpunit": "^10.2"
+  },
+  "minimum-stability": "dev"
+}
