@@ -8,6 +8,7 @@ use Traversable;
 use ArrayIterator;
 use JsonSerializable;
 use Ephramago\Cart\Helpers\Helpers;
+use Ephramago\Cart\Contracts\Support\Jsonable;
 use Ephramago\Cart\Contracts\Support\Arrayable;
 
 /**
@@ -163,26 +164,34 @@ class CartCollection implements ArrayAccess
     }
 
     /**
-     * Results array of items from Collection or Arrayable.
+     * Convert the object into something JSON serializable.
      *
-     * @param mixed  $items
-     * @return array
+     * @return array<TKey, mixed>
      */
-    protected function getArrayableItems($items)
+    public function jsonSerialize(): array
     {
-        if (is_array($items)) {
-            return $items;
-        } elseif ($items instanceof CartCollection) {
-            return $items->all();
-        } elseif ($items instanceof Traversable) {
-            return iterator_to_array($items);
-        } elseif ($items instanceof JsonSerializable) {
-            return (array) $items->jsonSerialize();
-        } elseif ($items instanceof UnitEnum) {
-            return [$items];
-        }
+        return array_map(function ($value) {
+            if ($value instanceof JsonSerializable) {
+                return $value->jsonSerialize();
+            } elseif ($value instanceof Jsonable) {
+                return json_decode($value->toJson(), true);
+            } elseif ($value instanceof Arrayable) {
+                return $value->toArray();
+            }
 
-        return (array) $items;
+            return $value;
+        }, $this->all());
+    }
+
+    /**
+     * Get the collection of items as JSON.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->jsonSerialize(), $options);
     }
 
     /**
@@ -203,6 +212,29 @@ class CartCollection implements ArrayAccess
     public function count(): int
     {
         return count($this->items);
+    }
+
+    /**
+     * Results array of items from Collection or Arrayable.
+     *
+     * @param mixed  $items
+     * @return array
+     */
+    protected function getArrayableItems($items)
+    {
+        if (is_array($items)) {
+            return $items;
+        } elseif ($items instanceof CartCollection) {
+            return $items->all();
+        } elseif ($items instanceof Traversable) {
+            return iterator_to_array($items);
+        } elseif ($items instanceof JsonSerializable) {
+            return (array) $items->jsonSerialize();
+        } elseif ($items instanceof UnitEnum) {
+            return [$items];
+        }
+
+        return (array) $items;
     }
 
     /**
