@@ -33,6 +33,7 @@ Ephramago\Cart\Contracts\Session\SessionInterface::class
 ## HOW TO USE
 -   [Quick Usage](#usage-usage-example)
 -   [Usage](#usage)
+-   [License](#license)
 
 ## Quick Usage Example
 
@@ -46,7 +47,7 @@ $phpSession = new PhpSession() // create new instance PhpSession
 $cartConfig = require('CartConfig.php') // receive the config array in the file
 
 // create new instance of cart
-$cart = new Cart(new PhpSession(), "shopping", $userID, $cartConfig)
+$cart = new Cart($phpSession, "shopping", $userID, $cartConfig)
 
 // add the product to cart
 $cart->session($userID)->add(array(
@@ -76,8 +77,8 @@ foreach($items as $row) {
 	echo $row->price;
 	
 	echo $item->associatedModel->id; // whatever properties your model have
-  echo $item->associatedModel->name; // whatever properties your model have
-  echo $item->associatedModel->description; // whatever properties your model have
+  	echo $item->associatedModel->name; // whatever properties your model have
+  	echo $item->associatedModel->description; // whatever properties your model have
 }
 
 // FOR FULL USAGE, SEE BELOW..
@@ -360,3 +361,8 @@ Clearing the Cart: **Cart::clear()**
 $cart->clear();
 $cart->session($userId)->clear();
 ```
+
+## License
+
+The Laravel Shopping Cart is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+	
